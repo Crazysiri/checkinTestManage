@@ -1,0 +1,50 @@
+
+
+##创建任务时 填好的
+
+
+#git名称
+git_project_name: LenzBusiness
+
+
+#分支名称 
+git_branch: feature/20190524_吕博涧_相机优化
+
+
+#pm 可不填 自动从分支名称中获取
+project_pm: ''
+
+
+#项目名称 可不填 自动从分支名称中获取
+project_name: ''
+
+
+#测试项
+test_options: |
+  1.普通拍照非全屏
+  2.普通拍照横屏
+  3.照片新压缩标准
+
+
+
+##提交的时候获取
+
+#备注
+poject_comment: |
+  1.答题开始启动定时器
+  2.提交时附加时间节点字段
+
+
+#开发人员 自动从git获取
+project_developers: ''
+
+
+#pr
+project_pr_diff: ''
+
+#code review人员 可不填
+review_members: ''
+
+#ui
+project_ui: 李娟
+
