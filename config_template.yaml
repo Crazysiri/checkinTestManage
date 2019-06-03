@@ -1,0 +1,47 @@
+#工程
+project_list:
+    - repo_name: LenzBusiness
+      prefix: 朗镜通iOS
+    - repo_name: LenzMember
+      prefix: 拍拍赚iOS
+
+#pm
+pm_list:
+    - ''
+    - ''
+
+
+#mail
+mail_user: ''
+mail_pass: ''
+
+mail_sender: ''
+mail_sender_name: ''
+#最下面签名需要
+mail_sender_phone: ''
+mail_sender_position: iOS工程师
+to_receivers:
+    - ''
+    # - lisijie@ppznet.com
+    # - liyapei@lenztechretail.com
+    # - wangsong@lenztechretail.com
+    # - yinjianzhuo@lenztechretail.com
+copy_receivers:
+    - ''
+    # - dev_all@lenztechretail.com
+    # - cpz@lenztechretail.com
+
+#git
+
+git_user: ''
+git_pass: ''
+
+developers:
+   - git_user_name: ''
+     name: ''
+   - git_user_name: ''
+     name: ''
+   - git_user_name: ''
+     name: ''
+   - git_user_name: ''
+     name: ''
