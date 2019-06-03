@@ -5,7 +5,7 @@
 git_project_name: LenzBusiness
 
 
-#分支名称 
+#分支名称
 git_branch: feature/20190601_TimeManagement
 
 
@@ -14,7 +14,7 @@ project_pm: 吕博涧
 
 
 #项目名称 可不填 自动从分支名称中获取
-project_name: 朗镜通iOS 朗镜通iOS 朗镜通iOS 朗镜通iOS 时间打点
+project_name: 朗镜通iOS 时间打点
 
 
 #测试项
@@ -58,4 +58,3 @@ review_members: ''
 
 #ui
 project_ui: 李娟
-
