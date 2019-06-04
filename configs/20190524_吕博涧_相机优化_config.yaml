@@ -1,0 +1,51 @@
+##创建任务时 填好的
+
+
+#git名称
+git_project_name: LenzBusiness
+
+
+#分支名称
+git_branch: feature/20190524_吕博涧_相机优化
+
+
+#pm 可不填 自动从分支名称中获取
+project_pm: 吕博涧
+
+
+#项目名称 可不填 自动从分支名称中获取
+project_name: 朗镜通iOS 6月相机优化
+
+
+#测试项
+test_options: |
+  1.相机优化
+
+
+
+##提交的时候获取
+
+#备注
+poject_comment: |-
+  横屏陀螺仪参数调整
+  特性：拍照的照片比例根据取景框变化
+  陀螺仪数据校验
+  设置相关逻辑
+  前置摄像头切换
+  特性：相机拍照完后预览缩略图逻辑
+  特性:屏幕旋转UI变化和屏幕旋转后拍照
+  特性：相机UI基础布局
+  修复：图片最大张数无限制。特性：去掉图片画水印并且开启照片浏览加水印。照片浏览反向浏览（拍拍赚一致）
+
+
+#开发人员 自动从git获取
+project_developers: 仇友博,袁冬冬,武得亮
+
+#pr
+project_pr_diff: https://gitee.com/ppz_bj/LenzBusiness/pulls/8
+
+#code review人员 可不填
+review_members: ''
+
+#ui
+project_ui: 李娟

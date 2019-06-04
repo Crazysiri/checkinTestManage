@@ -71,8 +71,9 @@ def getDevelopers(name,branch):
             if author['git_user_name'] in msg:
                 name = author['name']
                 if name not in dev_array:
+                    print(msg+name)
                     dev_array.append(name)
-        print(msg)
+#        print(msg)
 
     return ','.join(dev_array)
 
@@ -197,20 +198,22 @@ def sendEmail(config):
 #过滤 从 pr中读取的 数据 Merge branch
 def handle_comment_msg(list):
     dict = {}
+    list_new = []
     for row in list:
-
-        if '**提交者：袁冬冬 提交内容：' in row:
-            row.replace('**提交者：袁冬冬 提交内容:','')
-        elif '**提交者：袁冬冬 提交内容:' in row:
-            row.replace('**提交者：袁冬冬 提交内容:','')
+        row = row.replace('\n','')
+        row = row.replace(' ','')
+        if '**提交者：袁冬冬提交内容：' in row:
+            row = row.replace('**提交者：袁冬冬提交内容：','')
+        elif '**提交者：袁冬冬提交内容:' in row:
+            row = row.replace('**提交者：袁冬冬提交内容:','')
         elif 'jack_提交' in row:
-            row.replace('jack_提交','')
+            row = row.replace('jack_提交','')
         elif 'Jack_提交' in row:
-            row.replace('Jack_提交','')
-
-        if 'Merge branch' in row:
+            row = row.replace('Jack_提交','')
+        print(row)
+        if 'Mergebranch' in row:
             continue
-        elif 'Merge remote-tracking branch' in row:
+        elif 'Mergeremote-trackingbranch' in row:
             continue
         elif ('pod' in row or 'Pod' in row) and '同步' in row:
             continue
@@ -220,9 +223,10 @@ def handle_comment_msg(list):
             value = dict[row]
         except Exception,e:
             dict[row] = '1'
+            list_new.append(row)
 
         
-    return dict.keys
+    return list_new
 
 
 #主方法
@@ -258,13 +262,12 @@ def send():
 
     
     #自动获取 开发者
-    if config.project_developers == '':
-        config.project_developers = getDevelopers(config.git_project_name,config.git_branch)
+    config.project_developers = getDevelopers(config.git_project_name,config.git_branch)
 
     
     request = LenzRequest('ppz_bj',config.git_project_name)
     msg_list,pr_url = request.getPRByAllProcesses(config.git_branch,'pr:'+config.project_name)
-    config.poject_comment = ''.join(handle_comment_msg(msg_list))
+    config.poject_comment = '\n'.join(handle_comment_msg(msg_list))
     config.project_pr_diff = pr_url
 
     config.save(yamlPath)

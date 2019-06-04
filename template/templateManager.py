@@ -34,7 +34,7 @@ class TemplateConfig:
     #测试报告
     
     def readConfig(self,path):
-        yamlContent,ind,bsi = load_yaml_guess_indent(open(path))
+        yamlContent,ind,bsi = load_yaml_guess_indent(open(path.decode('utf-8')))
         
         self.git_project_name  = yamlContent['git_project_name']
         self.project_name = yamlContent['project_name']

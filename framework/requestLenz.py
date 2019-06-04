@@ -175,30 +175,31 @@ class LenzRequest:
         req = requests.get(url,params=params,headers=post_headers)
 
         return req.json()
-###
-{
-    "sha": "2a94be825ce1ea2cd8d22f2aa10fac23ba19167d",
-        "filename": "LenzBusiness/App部分逻辑说明文档",
-        "status": null,
-        "additions": "82",
-        "deletions": "25",
-        "blob_url": "https://gitee.com/ppz_bj/LenzBusiness/blob/2a94be825ce1ea2cd8d22f2aa10fac23ba19167d/LenzBusiness/App部分逻辑说明文档",
-        "raw_url": "https://gitee.com/ppz_bj/LenzBusiness/raw/2a94be825ce1ea2cd8d22f2aa10fac23ba19167d/LenzBusiness/App部分逻辑说明文档",
-        "patch": {
-            "diff": "",
-            "new_path": "LenzBusiness/App部分逻辑说明文档",
-            "old_path": "LenzBusiness/App部分逻辑说明文档",
-            "a_mode": "100644",
-            "b_mode": "100644",
-            "new_file": false,
-            "renamed_file": false,
-            "deleted_file": false,
-            "too_large": false
-}
+    """
+    {
+        "sha": "2a94be825ce1ea2cd8d22f2aa10fac23ba19167d",
+            "filename": "LenzBusiness/App部分逻辑说明文档",
+            "status": null,
+            "additions": "82",
+            "deletions": "25",
+            "blob_url": "https://gitee.com/ppz_bj/LenzBusiness/blob/2a94be825ce1ea2cd8d22f2aa10fac23ba19167d/LenzBusiness/App部分逻辑说明文档",
+            "raw_url": "https://gitee.com/ppz_bj/LenzBusiness/raw/2a94be825ce1ea2cd8d22f2aa10fac23ba19167d/LenzBusiness/App部分逻辑说明文档",
+            "patch": {
+                "diff": "",
+                "new_path": "LenzBusiness/App部分逻辑说明文档",
+                "old_path": "LenzBusiness/App部分逻辑说明文档",
+                "a_mode": "100644",
+                "b_mode": "100644",
+                "new_file": false,
+                "renamed_file": false,
+                "deleted_file": false,
+                "too_large": false
     }
-###
+        }
+    """
     #获取pr diff
     def getPRDiffs(self,number):
+        
         url = 'https://gitee.com/api/v5/repos/%s/%s/pulls/%s/files' % (self.owner,self.repo,number)
 
         post_headers = {
