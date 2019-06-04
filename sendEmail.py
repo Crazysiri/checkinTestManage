@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+#pip install gitpython
+#sudo pip install pyyaml
+#sudo pip install requests
+#pip install ruamel.yaml
 
 import smtplib
 from email.mime.text import MIMEText
@@ -29,7 +33,7 @@ sys.path.append('./template')
 from templateManager import TemplateConfig
 
 
-
+#工程配置（git账户密码，邮箱账户密码等等）
 class ProjectConfig:
 
     config = None
@@ -43,6 +47,8 @@ class ProjectConfig:
 p_config = ProjectConfig()
 p_config.read()
 
+
+
 #第三方 smtp 服务
 mail_host="smtp.exmail.qq.com"
 mail_user=p_config.config['mail_user']
@@ -52,31 +58,22 @@ sender = p_config.config['mail_sender']
 to_receivers = p_config.config['to_receivers']
 copy_receivers = p_config.config['copy_receivers']
 
-#to_receivers = ['lisijie@ppznet.com','liyapei@lenztechretail.com','wangsong@lenztechretail.com','yinjianzhuo@lenztechretail.com']
-#copy_receivers = ['dev_all@lenztechretail.com','cpz@lenztechretail.com']
 receivers = to_receivers + copy_receivers
 
 #git相关
 #获取代码开发者:name就是目录的名字 类似。LenzBusiness，远程clone下来的和本地一样的名字
-#暂时名字写死 回头如果可以 会写成配置文件
 def getDevelopers(name,branch):
     dev_array = []
     g = git.Git('~/'+name)
     commitMessages = g.log('%s...%s' % (branch,'master'),'--pretty=format:%ad %an - %s','--abbrev-commit').split('\n')
     for msg in commitMessages:
+        for author in p_config.config['developers']:
+            if author['git_user_name'] in msg:
+                name = author['name']
+                if name not in dev_array:
+                    dev_array.append(name)
         print(msg)
-        if 'zero' in msg:
-            if '仇友博' not in dev_array:
-                dev_array.append('仇友博')
-        elif 'wudeliang' in msg:
-            if '武得亮' not in dev_array:
-                dev_array.append('武得亮')
-        elif 'yuandongdong' in msg:
-            if '袁冬冬' not in dev_array:
-                dev_array.append('袁冬冬')
-        elif 'Jack_199010177098' in msg:
-            if '张杰林' not in dev_array:
-                dev_array.append('张杰林')
+
     return ','.join(dev_array)
 
 #文本转html
@@ -104,6 +101,18 @@ def email_row(title,content,highlighted):
         </tr>
     """
     return row_msg
+
+def bottom():
+    name = p_config.config['mail_sender_name']
+    position = p_config.config['mail_sender_position']
+    phone = p_config.config['mail_sender_phone']
+    mail = p_config.config['mail_sender']
+    mailto = "mailto:"+mail
+    print(name)
+    str="""
+        <br class="">Best Regards<br class=""><br class="">姓名:"""+name+"""<br class="">职位："""+position+"""<br class="">Cel :"""+phone+"""<br class=""><a href="""+mailto+""" class="">E-mail:"""+mail+"""</a>
+    """
+    return str
 
 def email_content(config):
     
@@ -157,7 +166,7 @@ def email_content(config):
     </div>
     <br class="">
 
-    ------------------</span></div><div><includetail><div style="font:Verdana normal 14px;color:#000;"><div style="position:relative;"><div class=""><div dir="auto" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; word-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;" class=""><div dir="auto" style="word-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;" class=""><div style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none;">朗镜科技成立于2015年，是新零售时代消费品领域AI图像识别技术的领航者。致力于运用世界领先的计算机视觉技术和大数据挖掘与分析服务帮助品牌商实时获取渠道终端商品信息，实现消费决策场景可视化、数据化、实时化。辅以全国百万会员的人人终端众包业务，辐射600+城市。拥有权威的技术专家和研发团队，均来自清华、北大、复旦等高等院校和世界500强企业。经过不断的深耕与创新，已成功服务了全球上百家大型企业，覆盖快消、医药、家电、连锁等行业。<br class="">------------------<br class="">Best Regards<br class=""><br class="">姓名:仇友博<br class="">职位：iOS工程师<br class="">Cel :17600406668<br class=""><a href="mailto:qiuyoubo@lenztechretail.com" class="">E-mail:qiuyoubo@lenztechretail.com</a></div></div></div>
+    ------------------</span></div><div><includetail><div style="font:Verdana normal 14px;color:#000;"><div style="position:relative;"><div class=""><div dir="auto" style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; word-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;" class=""><div dir="auto" style="word-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;" class=""><div style="caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none;">朗镜科技成立于2015年，是新零售时代消费品领域AI图像识别技术的领航者。致力于运用世界领先的计算机视觉技术和大数据挖掘与分析服务帮助品牌商实时获取渠道终端商品信息，实现消费决策场景可视化、数据化、实时化。辅以全国百万会员的人人终端众包业务，辐射600+城市。拥有权威的技术专家和研发团队，均来自清华、北大、复旦等高等院校和世界500强企业。经过不断的深耕与创新，已成功服务了全球上百家大型企业，覆盖快消、医药、家电、连锁等行业。<br class="">------------------"""+bottom()+"""</div></div></div>
     </div>
 
     <br class="">
@@ -168,7 +177,7 @@ def email_content(config):
 
 def sendEmail(config):
     message = MIMEText(email_content(config),'html','utf-8')
-    message['From'] = Header("仇友博<"+sender+">",'utf-8')
+    message['From'] = Header(p_config.config['mail_sender_name']+"<"+sender+">",'utf-8')
     message['To'] = Header(";".join(to_receivers),'utf-8')
     message['Cc'] = Header(";".join(copy_receivers),'utf-8')
     
@@ -185,7 +194,7 @@ def sendEmail(config):
     except smtplib.SMTPException:
         print"Error:无法发送邮件"
 
-#过滤 从 pr中读取的 数据
+#过滤 从 pr中读取的 数据 Merge branch
 def handle_comment_msg(list):
     dict = {}
     for row in list:
@@ -215,7 +224,9 @@ def handle_comment_msg(list):
         
     return dict.keys
 
-def main(argv):
+
+#主方法
+def send():
     
     requestLenz.request_config_username = p_config.config['git_user']
     requestLenz.request_config_password = p_config.config['git_pass']
@@ -250,13 +261,8 @@ def main(argv):
     if config.project_developers == '':
         config.project_developers = getDevelopers(config.git_project_name,config.git_branch)
 
-    if config.git_project_name == 'LenzBusiness':
-        config.project_name = '朗镜通iOS ' + config.project_name
-    elif config.git_project_name == 'LenzMember':
-        config.project_name = '拍拍赚iOS ' + config.project_name
-
     
-    request = LenzRequest('ppz_bj','LenzBusiness')
+    request = LenzRequest('ppz_bj',config.git_project_name)
     msg_list,pr_url = request.getPRByAllProcesses(config.git_branch,'pr:'+config.project_name)
     config.poject_comment = ''.join(handle_comment_msg(msg_list))
     config.project_pr_diff = pr_url
@@ -271,6 +277,12 @@ def main(argv):
     sendEmail(config)
 
 
+def main(argv):
+    if sys.getdefaultencoding() != 'utf-8':
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+    print(bottom())
+#    send()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

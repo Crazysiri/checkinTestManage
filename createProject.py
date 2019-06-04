@@ -52,7 +52,7 @@ def handleTranslateStr(content):
     return ''.join(comps_new)
 
 
-def main(argv):
+def create():
     if sys.getdefaultencoding() != 'utf-8':
         reload(sys)
         sys.setdefaultencoding('utf-8')
@@ -69,10 +69,10 @@ def main(argv):
     count = 0
     for p in yamlContent['project_list']:
         count += 1
-        print(str(count)+'.'+p)
+        print(str(count)+'.'+p['prefix'])
     repo_index = int(raw_input('请输入工程名称索引:'))
-    repo_name = yamlContent['project_list'][repo_index - 1]
-
+    repo_name = yamlContent['project_list']['repo_name'][repo_index - 1]
+    prefix = yamlContent['project_list']['prefix'][repo_index - 1]
 
     pm_name = ''
     task_name = ''
@@ -157,7 +157,7 @@ def main(argv):
     config.git_project_name = repo_name
     config.test_options = test_options
     config.project_pm = pm_name
-    config.project_name = task_name
+    config.project_name = prefix + ' ' + task_name
 
     yaml_name = just_test_branch+'_config.yaml'
     yamlPath = os.path.join(os.getcwd(),'configs/' + yaml_name)
@@ -174,6 +174,8 @@ def main(argv):
     print('存储到本地配置成功：')
     print(test_options)
 
+def main(argv):
+    create()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -9,8 +9,7 @@ sys.path.append('./framework')
 from requestLenz import LenzRequest
 
 
-
-def main(argv):
+def invite():
 
     request = LenzRequest('ppz_bj','')
 
@@ -19,6 +18,10 @@ def main(argv):
     for member in members:
         result = request.inviteRepoMember(member,repo)
         print(str(result))
+
+
+def main(argv):
+    invite()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
