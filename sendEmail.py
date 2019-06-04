@@ -273,6 +273,7 @@ def send():
     config.save(yamlPath)
     config.log()
 
+    os.popen('open ' + yamlPath)
     raw_input('如果现在需要修改请前往 %s 去修改，修改完后回到这里按任意键继续:' % (yamlPath))
     config.readConfig(yamlPath)
     config.log()
