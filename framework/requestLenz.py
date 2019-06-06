@@ -106,10 +106,50 @@ class LenzRequest:
             self.token = result["access_token"]
             self.saveTokenToDisk()
 
-
-                    
-                    
+#获取所有分支
+    def getAllBranches(self):
+        url = 'https://gitee.com/api/v5/repos/'+self.owner+'/'+self.repo+'/branches'
+        
+        post_headers = {
+            "Content-Type":'application/x-www-form-urlencoded'
+        }
+        
+        params = {
+            "access_token":self.token,
+            "owner":self.owner,
+            "repo":self.repo,
+        }
+        
+        req =  requests.get(url,params=params,headers=post_headers)
+        result = req.json()
+        return result
     
+    
+    
+#创建新分支
+    def createNewBranch(self,branch,branch_from):
+        url = 'https://gitee.com/api/v5/repos/'+self.owner+'/'+self.repo+'/branches'
+
+        post_headers = {
+            "Content-Type":'application/x-www-form-urlencoded'
+        }
+            
+        params = {
+            "access_token":self.token,
+            "owner":self.owner,
+            "repo":self.repo,
+            "refs":branch_from,
+            "branch_name":branch
+        }
+            
+        req =  requests.post(url,params=params,headers=post_headers)
+        result = req.json()
+        return result
+
+            
+            
+            
+            
 #邀请 加入 某个库
     def inviteRepoMember(self,member,repo):
         url = 'https://gitee.com/api/v5/repos/'+self.owner+'/'+repo+'/collaborators/'+member

@@ -32,9 +32,9 @@ def invite():
     
     requestLenz.request_config_username = p_config.config['git_user']
     requestLenz.request_config_password = p_config.config['git_pass']
-
+    
     request = LenzRequest('ppz_bj','')
-
+    
     repo = raw_input('输入要邀请的项目(LenzBusiness)：')
     members = ['btcxiaowu','zhang_jack','Lenz_ydd']
     for member in members:
@@ -47,3 +47,4 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
