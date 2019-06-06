@@ -27,6 +27,7 @@ test_options: |
 
 #备注
 poject_comment: |-
+  设置开关校验
   横屏陀螺仪参数调整
   特性：拍照的照片比例根据取景框变化
   陀螺仪数据校验
@@ -39,10 +40,10 @@ poject_comment: |-
 
 
 #开发人员 自动从git获取
-project_developers: 仇友博,袁冬冬,武得亮
+project_developers: 张杰林,袁冬冬,仇友博,武得亮
 
 #pr
-project_pr_diff: https://gitee.com/ppz_bj/LenzBusiness/pulls/8
+project_pr_diff: https://gitee.com/ppz_bj/LenzBusiness/pulls/9
 
 #code review人员 可不填
 review_members: ''

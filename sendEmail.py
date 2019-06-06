@@ -39,7 +39,7 @@ class ProjectConfig:
     config = None
     
     def read(self):
-        path=os.getcwd()
+        path = os.path.dirname(os.path.realpath(__file__))
         path = os.path.join(path,'config.yaml')
         yamlContent,ind,bsi = load_yaml_guess_indent(open(path))
         self.config = yamlContent
@@ -239,7 +239,7 @@ def send():
         reload(sys)
         sys.setdefaultencoding('utf-8')
 
-    path=os.getcwd()
+    path = os.path.dirname(os.path.realpath(__file__))
 
     configs_path = os.path.join(path,'configs/configs')
 
@@ -274,6 +274,8 @@ def send():
     config.log()
 
     os.popen('open ' + yamlPath)
+    print('---------------------------------------------------------')
+    print('---------------------------------------------------------')
     raw_input('如果现在需要修改请前往 %s 去修改，修改完后回到这里按任意键继续:' % (yamlPath))
     config.readConfig(yamlPath)
     config.log()

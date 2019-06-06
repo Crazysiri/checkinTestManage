@@ -127,7 +127,7 @@ class LenzRequest:
         }
         
         
-        result = requests.put(url,json=params,headers=post_headers)
+        result = requests.put(url,params=params,headers=post_headers)
         return result.json()
 
 
@@ -152,7 +152,6 @@ class LenzRequest:
         req = requests.get(url,params=params,headers=post_headers)
 
         result = req.json()
-        
         return result
             
                     
